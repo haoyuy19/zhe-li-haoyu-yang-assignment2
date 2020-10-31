@@ -10,9 +10,16 @@ export default class Grid extends React.Component {
     constructor(props) {
         super(props);
         // eslint-disable-next-line react/prop-types
-        WIDTH = this.props.m;
+        if (this.props.m != null) {
+            // eslint-disable-next-line react/prop-types
+            WIDTH = this.props.m;
+        }
+
         // eslint-disable-next-line react/prop-types
-        HEIGHT = this.props.n;
+        if (this.props.n != null) {
+            // eslint-disable-next-line react/prop-types
+            HEIGHT = this.props.n;
+        }
         this.state = {
             color: 'black',
         };
@@ -33,9 +40,9 @@ export default class Grid extends React.Component {
             // ['white', 'white', 'white', 'black'],
         ];
 
-        for (let i = 0; i < WIDTH; i++) {
+        for (let i = 0; i < HEIGHT; i++) {
             const td = [];
-            for (let j = 0; j < HEIGHT; j++) {
+            for (let j = 0; j < WIDTH; j++) {
                 // grid.push(col);
                 td.push(
                     <td
