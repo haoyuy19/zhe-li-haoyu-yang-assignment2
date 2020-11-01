@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from './Grid';
 var width;
 var height;
-var userSpeed;
+var userSpeed = 300;
 
 class Main extends React.Component {
     constructor(props) {
@@ -199,8 +199,7 @@ class Main extends React.Component {
 
     myChangeHandlerspeed = event => {
         userSpeed = event.target.value;
-
-        console.log(event.target.value + ' ' + this.state.speed);
+        //console.log(event.target.value + ' ' + this.state.speed);
         this.setState({
             speed: userSpeed,
         });
