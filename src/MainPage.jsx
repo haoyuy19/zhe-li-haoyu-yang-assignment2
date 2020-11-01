@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Router, Link, Switch } from 'react-router-dom';
-import Grid from './Grid';
+import Main from './Main';
 
 var newm;
 var newn;
@@ -68,9 +68,9 @@ class MainPage extends React.Component {
                                     </button>
                                 </div>
                             </Route>
-                            <Route path="/grid" component={Grid}>
+                            <Route path="/grid" component={Main}>
                                 {/* <Cell m = {this.state.m}/> */}
-                                <Grid n={newn} m={newm} />
+                                <Main n={newn} m={newm} />
                             </Route>
                         </Switch>
                     </BrowserRouter>
