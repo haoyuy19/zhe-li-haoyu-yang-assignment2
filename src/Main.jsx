@@ -1,8 +1,10 @@
 import React from 'react';
 import Grid from './Grid';
+
 var width;
 var height;
 var userSpeed = 300;
+let heatmapon;
 
 class Main extends React.Component {
     constructor(props) {
@@ -29,6 +31,9 @@ class Main extends React.Component {
         } else {
             height = 30;
         }
+
+        heatmapon = false;
+
         this.state = {
             speed: 300,
             paused: true,
@@ -37,8 +42,13 @@ class Main extends React.Component {
                 .fill()
                 // eslint-disable-next-line react/prop-types
                 .map(() => Array(this.props.height).fill(false)),
+            aliveness: Array(width)
+                .fill()
+                // eslint-disable-next-line react/prop-types
+                .map(() => Array(this.props.height).fill(0)),
             outofbound: false,
         };
+
         //console.log(width);
     }
 
@@ -50,41 +60,59 @@ class Main extends React.Component {
 
     updateCell = (i, j) => {
         let copy = JSON.parse(JSON.stringify(this.state.grid));
+        let map = JSON.parse(JSON.stringify(this.state.aliveness));
         copy[i][j] = !copy[i][j];
         this.setState({
             grid: copy,
+            aliveness: map,
         });
     };
 
     init = () => {
         let copy = JSON.parse(JSON.stringify(this.state.grid));
+        let map = JSON.parse(JSON.stringify(this.state.aliveness));
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
                 copy[i][j] = false;
+                map[i][j] = 0;
                 if (Math.random() <= 0.05) {
                     copy[i][j] = true;
+                    map[i][j] = 1;
                 }
             }
         }
 
         this.setState({
             grid: copy,
+            aliveness: map,
         });
     };
 
     clear = () => {
         let copy = JSON.parse(JSON.stringify(this.state.grid));
+        let map = JSON.parse(JSON.stringify(this.state.aliveness));
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
                 copy[i][j] = false;
+                map[i][j] = 0;
             }
         }
 
         this.setState({
             grid: copy,
+            aliveness: map,
             generation: 0,
         });
     };
+
+    heatmap = () => {
+        clearInterval(this.intervalId);
+        heatmapon = !heatmapon;
+        this.setState({
+            paused: true,
+        });
+    };
+
     pause = () => {
         clearInterval(this.intervalId);
         this.setState({
@@ -108,6 +136,8 @@ class Main extends React.Component {
         let hasChange = false;
         let neighborlive = 0;
         let copy = JSON.parse(JSON.stringify(this.state.grid));
+        let map = JSON.parse(JSON.stringify(this.state.aliveness));
+
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
                 if (i > 0) {
@@ -153,18 +183,22 @@ class Main extends React.Component {
                 if (copy[i][j] == true) {
                     if (neighborlive == 2 || neighborlive == 3) {
                         copy[i][j] = true;
+                        map[i][j] = 1;
                     } else {
                         hasChange = true;
                         copy[i][j] = false;
+                        map[i][j] = 0.9;
                     }
                     //console.log(neighborlive);
                     neighborlive = 0;
                     continue;
                 }
                 if (copy[i][j] == false) {
+                    map[i][j] = map[i][j] - 0.1 > 0 ? map[i][j] - 0.1 : 0;
                     if (neighborlive == 3) {
                         hasChange = true;
                         copy[i][j] = true;
+                        map[i][j] = 1;
                     }
                     //console.log(neighborlive);
                     neighborlive = 0;
@@ -175,6 +209,7 @@ class Main extends React.Component {
         var incre = hasChange ? 1 : 0;
         this.setState({
             grid: copy,
+            aliveness: map,
             generation: this.state.generation + incre,
         });
         if (!hasChange) {
@@ -187,6 +222,8 @@ class Main extends React.Component {
             return (
                 <Grid
                     grid={this.state.grid}
+                    aliveness={this.state.aliveness}
+                    heatmapon={heatmapon}
                     rows={height}
                     cols={width}
                     updateCell={this.updateCell}
@@ -254,6 +291,13 @@ class Main extends React.Component {
                 <button style={buttonStyle} type="button" onClick={this.clear}>
                     clear
                 </button>
+                <button
+                    style={buttonStyle}
+                    type="button"
+                    onClick={this.heatmap}>
+                    heatmap
+                </button>
+
                 <this.enterSpeed></this.enterSpeed>
             </div>
         );
