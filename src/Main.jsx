@@ -34,21 +34,21 @@ class Main extends React.Component {
 
         heatmapon = false;
 
+        console.log(width + ' ' + height);
         this.state = {
             speed: 300,
             paused: true,
             generation: 0,
-            grid: Array(width)
+            grid: Array(height)
                 .fill()
                 // eslint-disable-next-line react/prop-types
-                .map(() => Array(this.props.height).fill(false)),
+                .map(() => Array(width).fill(false)),
             aliveness: Array(width)
                 .fill()
                 // eslint-disable-next-line react/prop-types
-                .map(() => Array(this.props.height).fill(0)),
+                .map(() => Array(width).fill(0)),
             outofbound: false,
         };
-
         //console.log(width);
     }
 
@@ -69,6 +69,7 @@ class Main extends React.Component {
     };
 
     init = () => {
+        this.clear();
         let copy = JSON.parse(JSON.stringify(this.state.grid));
         let map = JSON.parse(JSON.stringify(this.state.aliveness));
         for (let i = 0; i < height; i++) {
@@ -218,7 +219,8 @@ class Main extends React.Component {
     };
 
     outofbound = () => {
-        if (width > 10 && width < 100 && height > 10 && height < 100) {
+        if (width >= 10 && width <= 100 && height >= 10 && height <= 100) {
+            //console.log(height + ' ' + width);
             return (
                 <Grid
                     grid={this.state.grid}
@@ -230,7 +232,13 @@ class Main extends React.Component {
                 />
             );
         } else {
-            return <div> Your input is out of bound </div>;
+            return (
+                <div>
+                    {' '}
+                    Your input is out of bound (valid input should between 10 -
+                    100)
+                </div>
+            );
         }
     };
 
