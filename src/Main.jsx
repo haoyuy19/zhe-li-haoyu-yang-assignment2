@@ -35,8 +35,7 @@ class Main extends React.Component {
             generation: 0,
             grid: Array(width)
                 .fill()
-                // eslint-disable-next-line react/prop-types
-                .map(() => Array(this.props.height).fill(false)),
+                .map(() => Array(height).fill(false)),
             outofbound: false,
         };
         //console.log(width);
