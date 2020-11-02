@@ -4,7 +4,10 @@ class Grid extends React.Component {
     render() {
         // eslint-disable-next-line react/prop-types
         const width = this.props.cols * 19;
+        // eslint-disable-next-line react/prop-types
+        const height = this.props.rows * 19;
         var cellStyle = {
+            height: height,
             width: width,
             lineHeight: '0',
             margin: 'auto',
@@ -12,13 +15,16 @@ class Grid extends React.Component {
             marginTop: '20px',
         };
         var arr = [];
-
+        var status;
+        // eslint-disable-next-line react/prop-types
+        //console.log(this.props.cols);
         // eslint-disable-next-line react/prop-types
         for (var i = 0; i < this.props.rows; i++) {
             // eslint-disable-next-line react/prop-types
             for (var j = 0; j < this.props.cols; j++) {
                 // eslint-disable-next-line react/prop-types
-                var status = this.props.grid[i][j];
+                status = this.props.grid[i][j];
+                //console.log(this.props.grid[i][j]);
                 arr.push(
                     <Cell
                         status={status}
@@ -28,14 +34,14 @@ class Grid extends React.Component {
                         updateCell={this.props.updateCell}
                     />
                 );
+                // eslint-disable-next-line react/prop-types
             }
+            // eslint-disable-next-line react/prop-types
+            // console.log(this.props.grid[i]);
+            //console.log(i);
         }
         //console.log(arr);
-        return (
-            <div className="grid" style={cellStyle}>
-                {arr}
-            </div>
-        );
+        return <div style={cellStyle}>{arr}</div>;
     }
 }
 export default Grid;

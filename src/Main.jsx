@@ -29,16 +29,17 @@ class Main extends React.Component {
         } else {
             height = 30;
         }
+        console.log(width + ' ' + height);
         this.state = {
             speed: 300,
             paused: true,
             generation: 0,
-            grid: Array(width)
+            grid: Array(height)
                 .fill()
-                .map(() => Array(height).fill(false)),
+                .map(() => Array(width).fill(false)),
             outofbound: false,
         };
-        //console.log(width);
+        //console.log(width + ' ' + height);
     }
 
     // outofbound = (m, n) => {
@@ -184,6 +185,7 @@ class Main extends React.Component {
 
     outofbound = () => {
         if (width >= 10 && width <= 100 && height >= 10 && height <= 100) {
+            //console.log(height + ' ' + width);
             return (
                 <Grid
                     grid={this.state.grid}
@@ -193,7 +195,13 @@ class Main extends React.Component {
                 />
             );
         } else {
-            return <div> Your input is out of bound </div>;
+            return (
+                <div>
+                    {' '}
+                    Your input is out of bound (valid input should between 10 -
+                    100)
+                </div>
+            );
         }
     };
 
