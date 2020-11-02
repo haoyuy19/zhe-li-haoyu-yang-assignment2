@@ -4,6 +4,13 @@ class Grid extends React.Component {
     render() {
         // eslint-disable-next-line react/prop-types
         const width = this.props.cols * 19;
+        var cellStyle = {
+            width: width,
+            lineHeight: '0',
+            margin: 'auto',
+            boxShadow: '0px 0px 20px white',
+            marginTop: '20px',
+        };
         var arr = [];
 
         // eslint-disable-next-line react/prop-types
@@ -25,7 +32,7 @@ class Grid extends React.Component {
         }
         //console.log(arr);
         return (
-            <div className="grid" style={{ width: width }}>
+            <div className="grid" style={cellStyle}>
                 {arr}
             </div>
         );

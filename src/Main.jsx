@@ -57,6 +57,7 @@ class Main extends React.Component {
     };
 
     init = () => {
+        this.clear();
         let copy = JSON.parse(JSON.stringify(this.state.grid));
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
@@ -183,7 +184,7 @@ class Main extends React.Component {
     };
 
     outofbound = () => {
-        if (width > 10 && width < 100 && height > 10 && height < 100) {
+        if (width >= 10 && width <= 100 && height >= 10 && height <= 100) {
             return (
                 <Grid
                     grid={this.state.grid}
