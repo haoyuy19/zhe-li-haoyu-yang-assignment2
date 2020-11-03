@@ -1,11 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainPage from './MainPage';
-import reducers from './reducers';
+import Main from './Main';
+import showheat from './reducers/heatmap';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-const store = createStore(reducers);
+// const initialState = {
+//     heatmapon: false,
+// };
+// function showheat(state = initialState, action) {
+//     switch (action.type) {
+//         case 'HEAT':
+//             return {
+//                 heatmapon: true,
+//             };
+//         case 'GAME':
+//             return {
+//                 heatmapon: false,
+//             };
+//         default:
+//             return state;
+//     }
+// }
+
+// const store = createStore(showheat);
+const store = createStore(showheat);
 
 ReactDOM.render(
     <React.StrictMode>

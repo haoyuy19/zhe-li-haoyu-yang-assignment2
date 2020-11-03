@@ -9,7 +9,6 @@ class HeatedCell extends React.Component {
         var heat;
         // eslint-disable-next-line react/prop-types
         heat = this.props.aliveness;
-        console.log(heat);
         var cellStyle = {
             display: 'inline-block',
             border: '2px solid gray',

@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from './Grid';
+// import HeatMap from './HeatMap';
 import { connect } from 'react-redux';
 
 var width;
@@ -215,6 +216,7 @@ class Main extends React.Component {
         });
         // eslint-disable-next-line react/prop-types
         this.props.dispatch({ type: 'HEAT' });
+        console.log('DISPATH MADE!!!!!!!!!');
     };
 
     turnoff = () => {
@@ -224,6 +226,7 @@ class Main extends React.Component {
         });
         // eslint-disable-next-line react/prop-types
         this.props.dispatch({ type: 'GAME' });
+        console.log('DISPATH MADE???????');
     };
 
     outofbound = () => {

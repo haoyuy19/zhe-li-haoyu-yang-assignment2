@@ -1,9 +1,7 @@
-import { combineReducers } from 'redux';
-
 const initialState = {
     heatmapon: false,
 };
-function showheat(state = initialState, action) {
+export default function showheat(state = initialState, action) {
     switch (action.type) {
         case 'HEAT':
             return {
@@ -17,7 +15,3 @@ function showheat(state = initialState, action) {
             return state;
     }
 }
-
-export default combineReducers({
-    heatmapon: showheat,
-});
