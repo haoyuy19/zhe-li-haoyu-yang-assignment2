@@ -37,8 +37,6 @@ class Grid extends React.Component {
                             aliveness={aliveness}
                             row={i}
                             col={j}
-                            // eslint-disable-next-line react/prop-types
-                            updateCell={this.props.updateCell}
                         />
                     );
                 } else {

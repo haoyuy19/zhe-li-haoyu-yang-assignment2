@@ -1,10 +1,10 @@
 import React from 'react';
 
 class HeatedCell extends React.Component {
-    updateCell = () => {
-        // eslint-disable-next-line react/prop-types
-        this.props.updateCell(this.props.row, this.props.col);
-    };
+    // updateCell = () => {
+    //     // eslint-disable-next-line react/prop-types
+    //     this.props.updateCell(this.props.row, this.props.col);
+    // };
     render() {
         var heat;
         // eslint-disable-next-line react/prop-types
