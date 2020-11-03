@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Router, Link, Switch } from 'react-router-dom';
 import Main from './Main';
+import Intro from './Intro';
 import { connect } from 'react-redux';
 
 var newm;
@@ -68,10 +69,21 @@ class MainPage extends React.Component {
                                         <Link to="/grid"> Submit </Link>
                                     </button>
                                 </div>
+                                <div>
+                                    <a>
+                                        <Link to="/intro">
+                                            {' '}
+                                            Game Introduction{' '}
+                                        </Link>
+                                    </a>
+                                </div>
                             </Route>
                             <Route path="/grid" component={Main}>
                                 {/* <Cell m = {this.state.m}/> */}
                                 <Main n={newn} m={newm} />
+                            </Route>
+                            <Route path="/intro" component={Intro}>
+                                <Intro />
                             </Route>
                         </Switch>
                     </BrowserRouter>

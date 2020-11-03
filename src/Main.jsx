@@ -1,6 +1,5 @@
 import React from 'react';
 import Grid from './Grid';
-// import HeatMap from './HeatMap';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -64,6 +63,11 @@ class Main extends React.Component {
         let copy = JSON.parse(JSON.stringify(this.state.grid));
         let map = JSON.parse(JSON.stringify(this.state.aliveness));
         copy[i][j] = !copy[i][j];
+        if (copy[i][j]) {
+            this.increment();
+        } else {
+            this.decrement();
+        }
         this.setState({
             grid: copy,
             aliveness: map,
@@ -371,6 +375,9 @@ class Main extends React.Component {
                     onClick={this.turnoff}>
                     Show Game Board
                 </button>
+                <div>
+                    <a href="/intro">Game Introduction</a>
+                </div>
                 <this.enterSpeed></this.enterSpeed>
             </div>
         );
