@@ -19,14 +19,14 @@ import { Provider } from 'react-redux';
 //             };
 //         default:
 //             return state;
-//     }
+//     }s
 // }
 
 const initialState = {
     heatmapon: false,
     count: 0,
 };
-function showheat(state = initialState, action) {
+function reducer(state = initialState, action) {
     switch (action.type) {
         case 'HEAT':
             return {
@@ -53,7 +53,7 @@ function showheat(state = initialState, action) {
     }
 }
 
-const store = createStore(showheat);
+const store = createStore(reducer);
 console.log(store.getState());
 ReactDOM.render(
     <React.StrictMode>
