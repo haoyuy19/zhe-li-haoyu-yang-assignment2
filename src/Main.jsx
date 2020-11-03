@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from './Grid';
+import Intro from './Intro';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -343,7 +344,7 @@ class Main extends React.Component {
                 </h2>
                 <p>
                     Living Cells:
-                    {this.state.livingcells}
+                    {' ' + this.state.livingcells}
                 </p>
                 <this.outofbound />
                 <button style={buttonStyle} type="button" onClick={this.init}>
@@ -370,9 +371,6 @@ class Main extends React.Component {
                     onClick={this.turnoff}>
                     Show Game Board
                 </button>
-                <div>
-                    <a href="/intro">Game Introduction</a>
-                </div>
                 <this.enterSpeed></this.enterSpeed>
             </div>
         );

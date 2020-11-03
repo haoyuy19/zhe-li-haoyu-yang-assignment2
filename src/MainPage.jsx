@@ -50,6 +50,7 @@ class MainPage extends React.Component {
             <form style={styleform}>
                 <h1>Conways History of Life</h1>
                 {/* <button> */}
+
                 <div>
                     <BrowserRouter>
                         <Switch>
@@ -70,12 +71,12 @@ class MainPage extends React.Component {
                                     </button>
                                 </div>
                                 <div>
-                                    <a>
+                                    <p>
                                         <Link to="/intro">
                                             {' '}
                                             Game Introduction{' '}
                                         </Link>
-                                    </a>
+                                    </p>
                                 </div>
                             </Route>
                             <Route path="/grid" component={Main}>
@@ -89,6 +90,7 @@ class MainPage extends React.Component {
                     </BrowserRouter>
                     {/* <Cell m = {this.state.m}/> */}
                 </div>
+                <div></div>
             </form>
         );
     }
