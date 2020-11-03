@@ -30,7 +30,7 @@ class Grid extends React.Component {
                 // eslint-disable-next-line react/prop-types
                 let aliveness = this.props.aliveness[i][j];
                 // eslint-disable-next-line react/prop-types
-                if (this.props.heatmapon) {
+                if (this.props.isheat) {
                     arr.push(
                         <HeatedCell
                             status={status}
@@ -62,4 +62,5 @@ class Grid extends React.Component {
         return <div style={cellStyle}>{arr}</div>;
     }
 }
+
 export default Grid;

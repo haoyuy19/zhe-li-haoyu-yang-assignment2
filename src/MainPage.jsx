@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Router, Link, Switch } from 'react-router-dom';
 import Main from './Main';
+import { connect } from 'react-redux';
 
 var newm;
 var newn;
@@ -81,4 +82,10 @@ class MainPage extends React.Component {
     }
 }
 
-export default MainPage;
+function mapStateToProps(state) {
+    return {
+        heatmapon: state.heatmapon,
+    };
+}
+
+export default connect(mapStateToProps)(MainPage);

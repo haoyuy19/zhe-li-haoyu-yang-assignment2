@@ -1,10 +1,10 @@
 import React from 'react';
 import Grid from './Grid';
+import { connect } from 'react-redux';
 
 var width;
 var height;
 var userSpeed = 300;
-let heatmapon;
 
 class Main extends React.Component {
     constructor(props) {
@@ -31,8 +31,6 @@ class Main extends React.Component {
         } else {
             height = 30;
         }
-
-        heatmapon = false;
 
         console.log(width + ' ' + height);
         this.state = {
@@ -103,14 +101,6 @@ class Main extends React.Component {
             grid: copy,
             aliveness: map,
             generation: 0,
-        });
-    };
-
-    heatmap = () => {
-        clearInterval(this.intervalId);
-        heatmapon = !heatmapon;
-        this.setState({
-            paused: true,
         });
     };
 
@@ -218,6 +208,24 @@ class Main extends React.Component {
         }
     };
 
+    turnon = () => {
+        clearInterval(this.intervalId);
+        this.setState({
+            paused: true,
+        });
+        // eslint-disable-next-line react/prop-types
+        this.props.dispatch({ type: 'HEAT' });
+    };
+
+    turnoff = () => {
+        clearInterval(this.intervalId);
+        this.setState({
+            paused: true,
+        });
+        // eslint-disable-next-line react/prop-types
+        this.props.dispatch({ type: 'GAME' });
+    };
+
     outofbound = () => {
         if (width >= 10 && width <= 100 && height >= 10 && height <= 100) {
             //console.log(height + ' ' + width);
@@ -225,9 +233,10 @@ class Main extends React.Component {
                 <Grid
                     grid={this.state.grid}
                     aliveness={this.state.aliveness}
-                    heatmapon={heatmapon}
                     rows={height}
                     cols={width}
+                    // eslint-disable-next-line react/prop-types
+                    isheat={this.props.heatmapon}
                     updateCell={this.updateCell}
                 />
             );
@@ -299,17 +308,25 @@ class Main extends React.Component {
                 <button style={buttonStyle} type="button" onClick={this.clear}>
                     clear
                 </button>
+                <button style={buttonStyle} type="button" onClick={this.turnon}>
+                    Show Heat Map
+                </button>
                 <button
                     style={buttonStyle}
                     type="button"
-                    onClick={this.heatmap}>
-                    heatmap
+                    onClick={this.turnoff}>
+                    Show Game Board
                 </button>
-
                 <this.enterSpeed></this.enterSpeed>
             </div>
         );
     }
 }
 
-export default Main;
+function mapStateToProps(state) {
+    return {
+        heatmapon: state.heatmapon,
+    };
+}
+
+export default connect(mapStateToProps)(Main);
