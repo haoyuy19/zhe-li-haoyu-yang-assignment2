@@ -37,7 +37,7 @@ class Main extends React.Component {
         this.state = {
             speed: 300,
             paused: true,
-            generation: 0,
+            livingcells: 0,
             grid: Array(height)
                 .fill()
                 // eslint-disable-next-line react/prop-types
@@ -62,27 +62,23 @@ class Main extends React.Component {
     updateCell = (i, j) => {
         let copy = JSON.parse(JSON.stringify(this.state.grid));
         let map = JSON.parse(JSON.stringify(this.state.aliveness));
+        let livingcount = this.state.livingcells;
         copy[i][j] = !copy[i][j];
         if (copy[i][j]) {
-            this.increment();
+            livingcount += 1;
         } else {
-            this.decrement();
+            livingcount -= 1;
         }
         this.setState({
             grid: copy,
             aliveness: map,
+            livingcells: livingcount,
         });
     };
 
     increment = () => {
         // eslint-disable-next-line react/prop-types
         this.props.dispatch({ type: 'INCREMENT' });
-        // console.log('Another ONNNNNNNNNNNNE');
-    };
-
-    decrement = () => {
-        // eslint-disable-next-line react/prop-types
-        this.props.dispatch({ type: 'DECREMENT' });
         // console.log('Another ONNNNNNNNNNNNE');
     };
 
@@ -96,6 +92,7 @@ class Main extends React.Component {
         this.clear();
         let copy = JSON.parse(JSON.stringify(this.state.grid));
         let map = JSON.parse(JSON.stringify(this.state.aliveness));
+        let cells = this.state.livingcells;
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
                 copy[i][j] = false;
@@ -104,24 +101,23 @@ class Main extends React.Component {
                     copy[i][j] = true;
                     map[i][j] = 1;
                     // eslint-disable-next-line react/prop-types
-                    this.increment();
+                    cells++;
                     console.log('++++++++++++++++++++++++++++++');
                 }
             }
         }
-
+        this.increment();
         this.setState({
             grid: copy,
             aliveness: map,
+            livingcells: cells,
         });
     };
 
     clear = () => {
         let copy = JSON.parse(JSON.stringify(this.state.grid));
         let map = JSON.parse(JSON.stringify(this.state.aliveness));
-
         this.reset();
-
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
                 copy[i][j] = false;
@@ -132,7 +128,8 @@ class Main extends React.Component {
         this.setState({
             grid: copy,
             aliveness: map,
-            generation: 0,
+            livingcells: 0,
+            // generation: 0,
         });
     };
 
@@ -159,7 +156,7 @@ class Main extends React.Component {
         let hasChange = false;
         let neighborlive = 0;
         // eslint-disable-next-line react/prop-types
-        let livingcount = 0;
+        let livingcount = this.state.livingcells;
         let copy = JSON.parse(JSON.stringify(this.state.grid));
         let map = JSON.parse(JSON.stringify(this.state.aliveness));
         for (let i = 0; i < height; i++) {
@@ -235,21 +232,13 @@ class Main extends React.Component {
             }
         }
         console.log(livingcount);
-        if (livingcount >= 0) {
-            for (let index = 0; index < Math.abs(livingcount); index++) {
-                this.increment();
-            }
-        } else {
-            for (let index = 0; index < Math.abs(livingcount); index++) {
-                this.decrement();
-            }
+        if (hasChange) {
+            this.increment();
         }
-        // this.increment();
-        var incre = hasChange ? 1 : 0;
         this.setState({
             grid: copy,
             aliveness: map,
-            generation: this.state.generation + incre,
+            livingcells: livingcount,
         });
         if (!hasChange) {
             this.pause();
@@ -264,6 +253,8 @@ class Main extends React.Component {
         // eslint-disable-next-line react/prop-types
         this.props.dispatch({ type: 'HEAT' });
         console.log('DISPATH MADE!!!!!!!!!');
+        // eslint-disable-next-line react/prop-types
+        console.log(this.props.count);
     };
 
     turnoff = () => {
@@ -274,6 +265,8 @@ class Main extends React.Component {
         // eslint-disable-next-line react/prop-types
         this.props.dispatch({ type: 'GAME' });
         console.log('DISPATH MADE???????');
+        // eslint-disable-next-line react/prop-types
+        console.log(this.props.count);
     };
 
     outofbound = () => {
@@ -337,18 +330,21 @@ class Main extends React.Component {
         var buttonStyle = {
             margin: '20px',
         };
-        console.log(this.state.paused);
+        // eslint-disable-next-line react/prop-types
+        console.log(this.props.count);
 
         return (
             <div>
-                <h2>Generations: {this.state.generation}</h2>
-
-                <p>
-                    Living Cells:{' '}
+                <h2>
+                    Generations:{' '}
                     {
                         // eslint-disable-next-line react/prop-types
                         this.props.count
                     }
+                </h2>
+                <p>
+                    Living Cells:
+                    {this.state.livingcells}
                 </p>
                 <this.outofbound />
                 <button style={buttonStyle} type="button" onClick={this.init}>
@@ -388,6 +384,7 @@ function mapStateToProps(state) {
     return {
         heatmapon: state.heatmapon,
         count: state.count,
+        generation: state.generation,
     };
 }
 
