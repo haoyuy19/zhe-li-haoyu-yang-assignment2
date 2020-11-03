@@ -92,7 +92,7 @@ class Main extends React.Component {
         this.clear();
         let copy = JSON.parse(JSON.stringify(this.state.grid));
         let map = JSON.parse(JSON.stringify(this.state.aliveness));
-        let cells = this.state.livingcells;
+        let cells = 0;
         for (let i = 0; i < height; i++) {
             for (let j = 0; j < width; j++) {
                 copy[i][j] = false;
@@ -129,7 +129,6 @@ class Main extends React.Component {
             grid: copy,
             aliveness: map,
             livingcells: 0,
-            // generation: 0,
         });
     };
 
