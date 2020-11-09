@@ -3,15 +3,9 @@
         "browser": true,
         "es2021": true,
         "node": true
-        
     },
     "parser": "babel-eslint",
-    "extends": [
-        
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "prettier"
-    ],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -20,14 +14,10 @@
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "prettier"
-    ],
+    "plugins": ["react", "prettier"],
     "rules": {
         //"parser": "babel-eslint",
         "prettier/prettier": "error",
-        "no-unused-vars": "warn"     
+        "no-unused-vars": "warn"
     }
-    
 }
