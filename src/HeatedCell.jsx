@@ -16,7 +16,6 @@ class HeatedCell extends React.Component {
         return (
             <div
                 style={cellStyle}
-                className="cell"
                 onClick={this.updateCell}></div>
         );
     }

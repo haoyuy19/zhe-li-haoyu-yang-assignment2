@@ -43,7 +43,7 @@ class Main extends React.Component {
                 .fill()
                 // eslint-disable-next-line react/prop-types
                 .map(() => Array(width).fill(false)),
-            aliveness: Array(width)
+            aliveness: Array(height)
                 .fill()
                 // eslint-disable-next-line react/prop-types
                 .map(() => Array(width).fill(0)),
@@ -302,9 +302,9 @@ class Main extends React.Component {
         });
     };
 
-    componentDidMount() {
-        this.enterSpeed;
-    }
+    // componentDidMount() {
+    //     this.enterSpeed;
+    // }
 
     enterSpeed = () => {
         if (this.state.paused) {
